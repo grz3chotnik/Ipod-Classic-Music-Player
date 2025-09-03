@@ -14,6 +14,7 @@ import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
 import MenuBuilder from './menu';
 import { resolveHtmlPath } from './util';
+import fs from 'fs';
 
 class AppUpdater {
   constructor() {
@@ -24,11 +25,25 @@ class AppUpdater {
 }
 
 let mainWindow: BrowserWindow | null = null;
+//
+// ipcMain.on('ipc-example', async (event, arg) => {
+//   const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
+//   console.log(msgTemplate(arg));
+//   event.reply('ipc-example', msgTemplate('pong'));
+// });
 
-ipcMain.on('ipc-example', async (event, arg) => {
-  const msgTemplate = (pingPong: string) => `IPC test: ${pingPong}`;
-  console.log(msgTemplate(arg));
-  event.reply('ipc-example', msgTemplate('pong'));
+ipcMain.handle('get-music-files', async () => {
+  try {
+    const musicPath = app.getPath('music');
+    const files = fs
+      .readdirSync(musicPath)
+      .filter((file) => file.endsWith('.mp3'))
+      .map((file) => path.join(musicPath, file));
+    return files;
+  } catch (err) {
+    console.error('Error reading Music folder:', err);
+    return [];
+  }
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -71,8 +86,11 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
+    width: 450,
+    height: 750,
+    frame: true,
+    transparent: true,
+    resizable: false,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: app.isPackaged

@@ -2,7 +2,7 @@
 /* eslint no-unused-vars: off */
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
-export type Channels = 'ipc-example';
+export type Channels = 'get-music-files';
 
 const electronHandler = {
   ipcRenderer: {
@@ -22,6 +22,8 @@ const electronHandler = {
       ipcRenderer.once(channel, (_event, ...args) => func(...args));
     },
   },
+  getMusicFiles: (folderPath: string) =>
+    ipcRenderer.invoke('get-music-files', folderPath),
 };
 
 contextBridge.exposeInMainWorld('electron', electronHandler);

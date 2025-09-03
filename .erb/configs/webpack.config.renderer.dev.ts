@@ -77,6 +77,16 @@ const configuration: webpack.Configuration = {
           'sass-loader',
         ],
         include: /\.module\.s?(c|a)ss$/,
+      },{
+        test: /\.(mp3|wav|ogg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+            },
+          },
+        ],
       },
       {
         test: /\.s?css$/,

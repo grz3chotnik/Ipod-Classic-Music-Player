@@ -1,39 +1,48 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
-import icon from '../../assets/icon.svg';
 import './App.css';
+// import Screen from '../components/Screen';
+// import Scrollwheel from '../components/Scrollwheel';
+import heartless from '../../assets/heartless.mp3';
+import { useRef, useState } from 'react';
+import playPause from '../../assets/playpause.svg';
+import backIcon from '../../assets/back.svg';
+import nextIcon from '../../assets/next.svg';
 
 function Hello() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef();
+  const togglePlayPause = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
   return (
-    <div>
-      <div className="Hello">
-        <img width="200" alt="icon" src={icon} />
+    <div className="player">
+      {/* <Screen song={heartless} /> */}
+      <div className="Screen">
+        <p>now playing: {heartless} </p>
+        <audio ref={audioRef} src={heartless} controls={true} />
       </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="folded hands">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
+
+      {/* <Scrollwheel /> */}
+      <div className="Scrollwheel">
+        <button className="top">menu</button>
+        <button className="bottom" onClick={togglePlayPause}>
+          <img src={playPause} />
+        </button>
+        <button className="center"></button>
+        <button className="left">
+          <img src={backIcon} />
+        </button>
+        <button className="right">
+          <img src={nextIcon} />
+        </button>
+
+        <div className="ScrollwheelBg" />
       </div>
     </div>
   );
