@@ -24,11 +24,13 @@ button {
   font-size: 1.3rem;
   color: #D9D9D9;
   font-weight: bold;
-  transition: all ease-in 0.1s;
+  transition: all ease-in 0.01s;
   cursor: pointer;
   opacity: 0.9;
 
 }
+
+
 
 /*button:hover {*/
 /*  transform: scale(1.05);*/
@@ -51,7 +53,12 @@ a:hover {
   text-decoration: none;
 }
 p {
-  color: black;
+  color: gray;
+  text-align: left;
+  font-size: 17px;
+  text-overflow: ellipsis;
+  height: 20px;
+  padding-left: 6px;
 }
 .Hello {
   display: flex;
@@ -69,17 +76,23 @@ p {
   width: 100%;
   border-radius: 36px;
   overflow: hidden;
+  box-shadow: 0px 0px 43px 0px rgba(0,0,0,0.52) inset;
+
 }
 
 
 .Screen {
   background-color: white;
   width: 388px;
-  height: 291px;
+  height: 270px;
   margin-bottom: 50px;
   margin-top: 31px;
   border: 2px solid black;
+  border-radius: 5px;
+
 }
+
+
 
 .Scrollwheel {
   display: grid;
@@ -122,3 +135,48 @@ p {
   height: 124px;
   border-radius: 124px;
 }
+/*.center:active {*/
+/*  box-shadow: 0px 0px 43px 0px rgba(0,0,0,0.10) inset;*/
+
+/*}*/
+ul {
+  color: black;
+  overflow-y: scroll;
+  max-height: 160px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+li {
+  text-align: left;
+  /*border-top: 1px solid #D9D9D9;*/
+}
+
+li:hover {
+  display: flex;
+  color: blue;
+}
+
+audio {
+  padding-left: 6px;
+}
+
+
+#scroller button:focus {
+  outline: none;
+}
+
+
+.musicbar {
+  width: 99%;
+
+}
+input[type="range"] {
+  -webkit-appearance: none; /* Remove default styling */
+  height: 15px;
+  background: #ccc; /* Track base color */
+  border-radius: 4px;
+  outline: none;
+}
+

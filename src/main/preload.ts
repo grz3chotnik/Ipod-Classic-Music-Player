@@ -4,6 +4,12 @@ import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
 export type Channels = 'get-music-files';
 
+
+contextBridge.exposeInMainWorld("electron", {
+  getMusicFiles: () => ipcRenderer.invoke("get-music-files"),
+});
+
+
 const electronHandler = {
   ipcRenderer: {
     sendMessage(channel: Channels, ...args: unknown[]) {

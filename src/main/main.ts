@@ -10,12 +10,34 @@
  */
 import path from 'path';
 import { app, BrowserWindow, shell, ipcMain } from 'electron';
+import { MediaService } from 'electron-media-service';
 import { autoUpdater } from 'electron-updater';
 import log from 'electron-log';
-import MenuBuilder from './menu';
+import { MenuBuilder } from './menu';
 import { resolveHtmlPath } from './util';
 import fs from 'fs';
+import path from 'path';
+import os from 'os';
 
+ipcMain.handle("get-music-files", async () => {
+  const musicDir = path.join(os.homedir(), "Music/2008 - 808's & Heartbreak");
+
+  try {
+    const files = fs.readdirSync(musicDir);
+    const musicFiles = files.filter(
+      (file) =>
+        file.endsWith(".mp3") ||
+        file.endsWith(".wav") ||
+        file.endsWith(".m4a") ||
+        file.endsWith(".flac")
+    );
+
+    return musicFiles.map((file) => path.join(musicDir, file));
+  } catch (err) {
+    console.error("Error reading Music folder:", err);
+    return [];
+  }
+});
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';
@@ -32,19 +54,7 @@ let mainWindow: BrowserWindow | null = null;
 //   event.reply('ipc-example', msgTemplate('pong'));
 // });
 
-ipcMain.handle('get-music-files', async () => {
-  try {
-    const musicPath = app.getPath('music');
-    const files = fs
-      .readdirSync(musicPath)
-      .filter((file) => file.endsWith('.mp3'))
-      .map((file) => path.join(musicPath, file));
-    return files;
-  } catch (err) {
-    console.error('Error reading Music folder:', err);
-    return [];
-  }
-});
+
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -90,12 +100,13 @@ const createWindow = async () => {
     height: 750,
     frame: true,
     transparent: true,
-    resizable: false,
+    resizable: true,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       preload: app.isPackaged
         ? path.join(__dirname, 'preload.js')
         : path.join(__dirname, '../../.erb/dll/preload.js'),
+      webSecurity: false,
     },
   });
 
