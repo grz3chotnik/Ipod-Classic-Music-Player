@@ -20,24 +20,29 @@ import path from 'path';
 import os from 'os';
 
 ipcMain.handle("get-music-files", async () => {
-  const musicDir = path.join(os.homedir(), "Music/2008 - 808's & Heartbreak");
+  const musicDir = app.getPath("music");
 
-  try {
-    const files = fs.readdirSync(musicDir);
-    const musicFiles = files.filter(
-      (file) =>
-        file.endsWith(".mp3") ||
-        file.endsWith(".wav") ||
-        file.endsWith(".m4a") ||
-        file.endsWith(".flac")
-    );
 
-    return musicFiles.map((file) => path.join(musicDir, file));
-  } catch (err) {
-    console.error("Error reading Music folder:", err);
-    return [];
+  function getAllMusicFiles(dir: string): string[] {
+    let results: string[] = [];
+    try {
+      for (const item of fs.readdirSync(dir, { withFileTypes: true })) {
+        const fullPath = path.join(dir, item.name);
+        if (item.isDirectory()) {
+          results = results.concat(getAllMusicFiles(fullPath));
+        } else if (/\.(mp3|wav|m4a|flac)$/i.test(item.name)) {
+          results.push(fullPath);
+        }
+      }
+    } catch (err) {
+      console.error("Error reading folder:", dir, err);
+    }
+    return results;
   }
-});
+
+  return getAllMusicFiles(musicDir).sort((a, b) =>
+    a.toLowerCase().localeCompare(b.toLowerCase())
+  );});
 class AppUpdater {
   constructor() {
     log.transports.file.level = 'info';

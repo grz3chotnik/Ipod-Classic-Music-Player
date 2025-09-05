@@ -5,9 +5,8 @@ import { useRef, useState, useEffect } from 'react';
 import playPause from '../../assets/playpause.svg';
 import backIcon from '../../assets/back.svg';
 import nextIcon from '../../assets/next.svg';
-import { app } from 'electron';
 import Windows from '../components/Windows';
-import Screen from '../components/Screen';
+
 
 function Hello() {
   const [isPlaying, setIsPlaying] = useState(true);
@@ -19,6 +18,11 @@ function Hello() {
   const songRef = useRef();
   const wheelRef = useRef(null);
   const lastAngleRef = useRef(null);
+
+
+
+
+
   const togglePlayPause = () => {
     if (isPlaying) {
       audioRef.current.pause();
@@ -121,9 +125,7 @@ function Hello() {
     }
   }, [currentSongIndex]);
 
-  // useEffect(() => {
-  //   const handleKeyDown = () => {};
-  // }, []);
+
 
   useEffect(() => {
     const audio = audioRef.current;
