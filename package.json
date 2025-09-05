@@ -1,6 +1,6 @@
 {
-  "name": "electron-react-boilerplate",
-  "description": "A foundation for scalable desktop apps",
+  "name": "ipod-classic",
+  "description": "A music player that looks and works like an Ipod Classic",
   "keywords": [
     "electron",
     "boilerplate",

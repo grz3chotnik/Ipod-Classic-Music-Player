@@ -1,27 +1,20 @@
 import { MemoryRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-// import Screen from '../components/Screen';
 import { useRef, useState, useEffect } from 'react';
-import playPause from '../../assets/playpause.svg';
-import backIcon from '../../assets/back.svg';
-import nextIcon from '../../assets/next.svg';
 import Windows from '../components/Windows';
-
+import Player from '../components/Player';
+import Test from '../components/Test';
 
 function Hello() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [files, setFiles] = useState([]);
   const audioRef = useRef(null);
+  const songRef = useRef(null);
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [time, setTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const songRef = useRef();
   const wheelRef = useRef(null);
   const lastAngleRef = useRef(null);
-
-
-
-
 
   const togglePlayPause = () => {
     if (isPlaying) {
@@ -112,7 +105,7 @@ function Hello() {
   const handleWheel = (direction) => {
     setCurrentSongIndex((prev) => {
       if (direction === 'up') return Math.max(prev - 1, 0);
-      else return Math.min(prev + 1, files.length - 1);
+      return Math.min(prev + 1, files.length - 1);
     });
   };
 
@@ -125,8 +118,6 @@ function Hello() {
     }
   }, [currentSongIndex]);
 
-
-
   useEffect(() => {
     const audio = audioRef.current;
     audio.ontimeupdate = () => setTime(audio.currentTime);
@@ -134,86 +125,27 @@ function Hello() {
   }, []);
 
   return (
-    <div className="player">
-      <div className="Screen">
-        {/* <ClickWheel/> */}
-        <p>
-          now playing:{' '}
-          {nowPlaying.replace('/Users/grz3chotnik/Music/', '')}{' '}
-        </p>
-
-        <ul>
-          {files.map((song, index) => {
-            return (
-              <button
-                key={index}
-                type="button"
-                onClick={() => {
-                  setCurrentSongIndex(index);
-                }}
-              >
-                <li
-                  ref={index === currentSongIndex ? songRef : null}
-                  style={{
-                    backgroundColor:
-                      currentSongIndex === index ? 'gray' : 'transparent',
-                    color: currentSongIndex === index ? 'white' : 'black',
-                  }}
-                >
-                  {song.replace(
-                    "/Users/grz3chotnik/Music/2008 - 808's & Heartbreak/",
-                    '',
-                  )}
-                </li>
-              </button>
-            );
-          })}
-        </ul>
-
-        <audio
-          ref={audioRef}
-          src={`file://${files[currentSongIndex]}`}
-          // controls
-          autoPlay
-          onEnded={songForward}
-        />
-        <input
-          type="range"
-          value={time}
-          onChange={(e) => {
-            const newTime = e.target.value;
-            audioRef.current.currentTime = newTime;
-            setTime(newTime);
-          }}
-          max={duration}
-          className="musicbar"
-        />
-        <p>
-          {Math.floor(time)} / {Math.floor(duration)}
-        </p>
-      </div>
-      <div className="Scrollwheel" ref={wheelRef}>
-        {/* <Link to="/Windows">test button</Link> */}
-
-        <button className="top" type="button">
-          MENU
-        </button>
-        <button className="bottom" onClick={togglePlayPause} type="button">
-          <img src={playPause} alt="play/pause" />
-        </button>
-        <button className="center" type="button" />
-        <button className="left" onClick={songPrev} type="button">
-          <img src={backIcon} alt="prev song" />
-        </button>
-        <button className="right" onClick={songForward} type="button">
-          <img src={nextIcon} alt="next song" />
-        </button>
-
-        <div className="ScrollwheelBg" />
-      </div>
+    <div>
+      {/* <Link to={'/Test'}>TEST</Link> */}
+      <Player
+        nowPlaying={nowPlaying}
+        files={files}
+        setCurrentSongIndex={setCurrentSongIndex}
+        currentSongIndex={currentSongIndex}
+        time={time}
+        duration={duration}
+        songRef={songRef}
+        audioRef={audioRef}
+        setTime={setTime}
+        wheelRef={wheelRef}
+        togglePlayPause={togglePlayPause}
+        songForward={songForward}
+        songPrev={songPrev}
+      />
     </div>
   );
 }
+<Test/>
 
 export default function App() {
   return (
@@ -221,6 +153,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Hello />} />
         <Route path="/Windows" element={<Windows />} />
+        <Route path="/Test" element={<Test />} />
       </Routes>
     </Router>
   );

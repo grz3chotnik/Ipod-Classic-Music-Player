@@ -52,8 +52,6 @@ export class MenuBuilder {
     });
   }
 
-
-
   buildDarwinTemplate(): MenuItemConstructorOptions[] {
     const subMenuAbout: DarwinMenuItemConstructorOptions = {
       label: 'Ipod Classic',
@@ -62,38 +60,10 @@ export class MenuBuilder {
           label: 'About Ipod Classic',
           selector: 'orderFrontStandardAboutPanel:',
         },
-        { type: 'separator' },
-        { label: 'Services', submenu: [] },
-        {
-          label: 'Swag',
-          submenu: [
-            {
-              label: 'Get Swag',
-              selector: 'Get Swag',
-              click: () => {
-                app.setBadgeCount(4);
-              },
-            },
-          ],
-        },
-        {
-          label: 'wordington',
-          submenu: [
-            {
-              label: 'epicness?',
-              selector: 'epicness?',
-              click: () => {
-
-
-
-              },
-            },
-          ],
-        },
 
         { type: 'separator' },
         {
-          label: 'Hide ElectronReact',
+          label: 'Hide Ipod Classic',
           accelerator: 'Command+H',
           selector: 'hide:',
         },
@@ -186,27 +156,37 @@ export class MenuBuilder {
         {
           label: 'Learn More',
           click() {
-            shell.openExternal('https://electronjs.org');
+            shell.openExternal(
+              'https://github.com/grz3chotnik/Ipod-Classic-Music-Player',
+            );
           },
         },
         {
           label: 'Documentation',
           click() {
             shell.openExternal(
-              'https://github.com/electron/electron/tree/main/docs#readme',
+              'https://github.com/grz3chotnik/Ipod-Classic-Music-Player',
             );
           },
         },
+      ],
+    };
+
+    let swag: number = 0;
+
+    function swagFunction(): void {
+      swag += 99;
+    }
+
+    const subMenuSwag: MenuItemConstructorOptions = {
+      label: 'Swagg',
+      submenu: [
         {
-          label: 'Community Discussions',
+          label: 'get swagged',
           click() {
-            shell.openExternal('https://www.electronjs.org/community');
-          },
-        },
-        {
-          label: 'Search Issues',
-          click() {
-            shell.openExternal('https://github.com/electron/electron/issues');
+            swagFunction();
+            app.setBadgeCount(swag);
+            app.showEmojiPanel();
           },
         },
       ],
@@ -218,7 +198,14 @@ export class MenuBuilder {
         ? subMenuViewDev
         : subMenuViewProd;
 
-    return [subMenuAbout, subMenuEdit, subMenuView, subMenuWindow, subMenuHelp];
+    return [
+      subMenuAbout,
+      subMenuEdit,
+      subMenuView,
+      subMenuWindow,
+      subMenuHelp,
+      subMenuSwag,
+    ];
   }
 
   buildDefaultTemplate() {
@@ -245,41 +232,41 @@ export class MenuBuilder {
           process.env.NODE_ENV === 'development' ||
           process.env.DEBUG_PROD === 'true'
             ? [
-              {
-                label: '&Reload',
-                accelerator: 'Ctrl+R',
-                click: () => {
-                  this.mainWindow.webContents.reload();
+                {
+                  label: '&Reload',
+                  accelerator: 'Ctrl+R',
+                  click: () => {
+                    this.mainWindow.webContents.reload();
+                  },
                 },
-              },
-              {
-                label: 'Toggle &Full Screen',
-                accelerator: 'F11',
-                click: () => {
-                  this.mainWindow.setFullScreen(
-                    !this.mainWindow.isFullScreen(),
-                  );
+                {
+                  label: 'Toggle &Full Screen',
+                  accelerator: 'F11',
+                  click: () => {
+                    this.mainWindow.setFullScreen(
+                      !this.mainWindow.isFullScreen(),
+                    );
+                  },
                 },
-              },
-              {
-                label: 'Toggle &Developer Tools',
-                accelerator: 'Alt+Ctrl+I',
-                click: () => {
-                  this.mainWindow.webContents.toggleDevTools();
+                {
+                  label: 'Toggle &Developer Tools',
+                  accelerator: 'Alt+Ctrl+I',
+                  click: () => {
+                    this.mainWindow.webContents.toggleDevTools();
+                  },
                 },
-              },
-            ]
+              ]
             : [
-              {
-                label: 'Toggle &Full Screen',
-                accelerator: 'F11',
-                click: () => {
-                  this.mainWindow.setFullScreen(
-                    !this.mainWindow.isFullScreen(),
-                  );
+                {
+                  label: 'Toggle &Full Screen',
+                  accelerator: 'F11',
+                  click: () => {
+                    this.mainWindow.setFullScreen(
+                      !this.mainWindow.isFullScreen(),
+                    );
+                  },
                 },
-              },
-            ],
+              ],
       },
       {
         label: 'Help',
