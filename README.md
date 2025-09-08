@@ -1,3 +1,3 @@
 # Preview
 
-<img width="464" height="733" alt="Screenshot 2025-09-05 at 09 16 04" src="https://github.com/user-attachments/assets/3f377f10-7679-4e79-afcb-63bde14ef40d" />
+<img width="448" height="711" alt="Screenshot 2025-09-08 at 08 39 30" src="https://github.com/user-attachments/assets/21a965a2-44aa-4aa9-9b95-dff288f89bd9" />
