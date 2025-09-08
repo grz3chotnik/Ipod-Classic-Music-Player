@@ -30,6 +30,11 @@ button {
 
 }
 
+.debug {
+  color: red;
+  z-index: 999;
+}
+
 
 
 /*button:hover {*/
@@ -57,7 +62,7 @@ p {
   text-align: left;
   font-size: 17px;
   text-overflow: ellipsis;
-  height: 20px;
+  height: 25px;
   padding-left: 6px;
   margin: 0;
 }
@@ -85,12 +90,12 @@ p {
 
 .Screen {
   background-color: white;
-  width: 388px;
-  height: 270px;
+  width: 380px;
+  height: 280px;
   margin-bottom: 50px;
   margin-top: 31px;
   border: 2px solid black;
-  border-radius: 5px;
+  border-radius: 15px;
 
 }
 
@@ -169,6 +174,9 @@ li {
   white-space: wrap; /* Allow text to wrap */
   word-wrap: anywhere; /* Break long words if necessary */
   padding: 2px;
+  /*transition: opacity 0.1s ease;*/
+  transition: background-color 0.05s ease, color 0.2s ease;
+
 
 
   border-top: 1px solid #D9D9D9;
@@ -176,9 +184,13 @@ li {
   /*border-top: 1px solid #D9D9D9;*/
 }
 
+/*li:hover {*/
+/*  display: flex;*/
+/*  color: blue;*/
+/*}*/
+
 li:hover {
-  display: flex;
-  color: blue;
+  opacity: 0.7;
 }
 
 audio {
@@ -192,13 +204,13 @@ audio {
 
 
 .musicbar {
-  width: 70%;
+  width: 60%;
 
 }
 input[type="range"] {
-  -webkit-appearance: none; /* Remove default styling */
+  -webkit-appearance: none;
   height: 15px;
-  background: #ccc; /* Track base color */
+  background: #ccc;
   border-radius: 4px;
   outline: none;
 }

@@ -141,6 +141,7 @@ function Hello() {
         togglePlayPause={togglePlayPause}
         songForward={songForward}
         songPrev={songPrev}
+        isPlaying={isPlaying}
       />
     </div>
   );

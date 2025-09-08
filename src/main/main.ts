@@ -18,6 +18,10 @@ import { resolveHtmlPath } from './util';
 import fs from 'fs';
 import path from 'path';
 import os from 'os';
+app.name = 'iPod Classic';
+if (process.env.NODE_ENV === 'development') {
+  app.setName('iPod Classic');
+}
 
 ipcMain.handle("get-music-files", async () => {
   const musicDir = app.getPath("music");
@@ -98,6 +102,7 @@ const createWindow = async () => {
   const getAssetPath = (...paths: string[]): string => {
     return path.join(RESOURCES_PATH, ...paths);
   };
+
 
   mainWindow = new BrowserWindow({
     show: false,

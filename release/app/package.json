@@ -1,12 +1,13 @@
 {
-  "name": "electron-react-boilerplate",
-  "version": "4.6.0",
-  "description": "A foundation for scalable desktop apps",
+  "name": "ipod-classic",
+  "productName": "iPod Classic",
+  "version": "0.1.0",
+  "description": "Music player that looks like the iPod Classic",
   "license": "MIT",
   "author": {
-    "name": "Electron React Boilerplate Maintainers",
-    "email": "electronreactboilerplate@gmail.com",
-    "url": "https://github.com/electron-react-boilerplate"
+    "name": "grz3chotnik",
+    "email": "krzysztofkubinski2004@gmail.com",
+    "url": "https://github.com/grz3chotnik/Ipod-Classic-Music-Player"
   },
   "main": "./dist/main/main.js",
   "scripts": {

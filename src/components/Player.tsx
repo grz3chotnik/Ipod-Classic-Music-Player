@@ -15,6 +15,7 @@ export default function Player({
   togglePlayPause,
   songForward,
   songPrev,
+  isPlaying,
 }) {
   return (
     <div className="player">
@@ -28,6 +29,8 @@ export default function Player({
         songRef={songRef}
         audioRef={audioRef}
         setTime={setTime}
+        songForward={songForward}
+        isPlaying={isPlaying}
       />
       <Scrollwheel
         wheelRef={wheelRef}
